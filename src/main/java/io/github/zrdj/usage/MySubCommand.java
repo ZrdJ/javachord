@@ -1,13 +1,13 @@
 package io.github.zrdj.usage;
 
 import io.github.zrdj.Javachord;
-import io.github.zrdj.command.ApplicationCommand;
+import io.github.zrdj.command.ApplicationCommandGroup;
 import io.github.zrdj.command.ApplicationCommand1;
 import org.javacord.api.interaction.SlashCommandInteraction;
 import org.javacord.api.util.logging.ExceptionLogger;
 
-public class MySubCommand extends ApplicationCommand1.SubCommand<String> {
-    public MySubCommand(final ApplicationCommand parent) {
+public class MySubCommand extends ApplicationCommand1.Of<String> {
+    public MySubCommand(final ApplicationCommandGroup parent) {
         super("my sub command",
                 "my sub command description",
                 parent,

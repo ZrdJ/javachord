@@ -1,30 +1,31 @@
 package io.github.zrdj.command;
 
-import io.github.zrdj.option.ApplicationCommandOption;
+import io.github.zrdj.ApplicationCommand;
+import io.github.zrdj.ApplicationCommandOption;
 import org.javacord.api.event.interaction.SlashCommandCreateEvent;
 import org.javacord.api.interaction.SlashCommandInteraction;
 
 import java.util.List;
 
-public interface ApplicationCommand1<O1> extends ApplicationCommandBase {
+public interface ApplicationCommand1<O1> extends ApplicationCommand {
     ApplicationCommandOption<O1> option1();
 
     void onInteraction(final SlashCommandInteraction interaction, final O1 o1);
 
-    abstract class SubCommand<O1> extends ApplicationCommandBase.Abstract implements ApplicationCommand1<O1> {
+    abstract class Of<O1> extends ApplicationCommand.Abstract implements ApplicationCommand1<O1> {
         protected final ApplicationCommandOption<O1> _option1;
 
-        protected SubCommand(
+        protected Of(
                 final String name,
                 final String description,
-                final ApplicationCommand parentCommand,
+                final ApplicationCommandGroup parentCommand,
                 final ApplicationCommandOption<O1> option1
         ) {
             super(name, description, parentCommand, List.of(option1));
             _option1 = option1;
         }
 
-        protected SubCommand(
+        protected Of(
                 final String name,
                 final String description,
                 final ApplicationCommandOption<O1> option1
@@ -42,7 +43,7 @@ public interface ApplicationCommand1<O1> extends ApplicationCommandBase {
         }
 
         @Override
-        public ApplicationCommandOption<O1> option1() {
+        public final ApplicationCommandOption<O1> option1() {
             return _option1;
         }
     }

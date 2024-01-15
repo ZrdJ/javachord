@@ -1,11 +1,11 @@
 package io.github.zrdj.usage;
 
-import io.github.zrdj.command.ApplicationCommand;
-import io.github.zrdj.command.ApplicationCommandBase;
+import io.github.zrdj.command.ApplicationCommandGroup;
+import io.github.zrdj.ApplicationCommand;
 
 import java.util.Optional;
 
-public class MyCommand extends ApplicationCommand.ParentCommand {
+public class MyCommand extends ApplicationCommandGroup.Of {
     public MyCommand() {
         super("my command",
                 "my command description"
@@ -13,7 +13,7 @@ public class MyCommand extends ApplicationCommand.ParentCommand {
     }
 
     @Override
-    public Optional<ApplicationCommandBase> subCommand() {
+    public Optional<ApplicationCommand> subCommand() {
         return Optional.of(new MySubCommand(this));
     }
 }

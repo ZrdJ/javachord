@@ -1,5 +1,6 @@
 package io.github.zrdj.option;
 
+import io.github.zrdj.ApplicationCommandOption;
 import org.javacord.api.interaction.SlashCommandInteraction;
 import org.javacord.api.interaction.SlashCommandOption;
 import org.javacord.api.interaction.SlashCommandOptionType;

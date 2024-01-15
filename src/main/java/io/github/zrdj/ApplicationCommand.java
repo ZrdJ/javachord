@@ -1,7 +1,6 @@
-package io.github.zrdj.command;
+package io.github.zrdj;
 
-import io.github.zrdj.Identifiable;
-import io.github.zrdj.option.ApplicationCommandOption;
+import io.github.zrdj.command.ApplicationCommandGroup;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.event.interaction.SlashCommandCreateEvent;
 import org.javacord.api.interaction.SlashCommand;
@@ -13,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public interface ApplicationCommandBase extends Identifiable {
+public interface ApplicationCommand extends Identifiable {
     @Override
     default String fqdn() {
         return parentCommand()
@@ -27,23 +26,23 @@ public interface ApplicationCommandBase extends Identifiable {
 
     void registerListeners(final DiscordApi discordApi);
 
-    default Optional<ApplicationCommandBase> subCommand() {
+    default Optional<ApplicationCommand> subCommand() {
         return Optional.empty();
     }
 
-    default Optional<ApplicationCommand> parentCommand() {
+    default Optional<ApplicationCommandGroup> parentCommand() {
         return Optional.empty();
     }
 
-    abstract class Abstract implements ApplicationCommandBase, SlashCommandCreateListener {
+    abstract class Abstract implements ApplicationCommand, SlashCommandCreateListener {
         protected final String _name;
 
         protected final String _description;
-        protected final Optional<ApplicationCommand> _parentCommand;
+        protected final Optional<ApplicationCommandGroup> _parentCommand;
         private final List<ApplicationCommandOption<?>> _options;
         protected DiscordApi _discordApi;
 
-        protected Abstract(final String name, final String description, ApplicationCommand parentCommand, List<ApplicationCommandOption<?>> options) {
+        protected Abstract(final String name, final String description, ApplicationCommandGroup parentCommand, List<ApplicationCommandOption<?>> options) {
             _name = name.contains(" ") ? name.replaceAll(" ", "-") : name;
             _description = description;
             _parentCommand = Optional.ofNullable(parentCommand);
@@ -56,20 +55,20 @@ public interface ApplicationCommandBase extends Identifiable {
         }
 
         @Override
-        public void registerListeners(final DiscordApi discordApi) {
+        public final void registerListeners(final DiscordApi discordApi) {
             discordApi.addListener(this);
             subCommand().ifPresent(sc -> sc.registerListeners(discordApi));
         }
 
         @Override
-        public SlashCommandOption toSlashSubCommand(final DiscordApi discordApi) {
+        public final SlashCommandOption toSlashSubCommand(final DiscordApi discordApi) {
             _discordApi = discordApi;
             var slashCommandOptions = _options.stream().map(ApplicationCommandOption::toSlashCommandOption).collect(Collectors.toList());
             return SlashCommandOption.createSubcommand(name(), description(), slashCommandOptions);
         }
 
         @Override
-        public SlashCommandBuilder toSlashCommand(final DiscordApi discordApi) {
+        public final SlashCommandBuilder toSlashCommand(final DiscordApi discordApi) {
             _discordApi = discordApi;
             var builder = SlashCommand.with(name(), description());
             for (final ApplicationCommandOption<?> option : _options) {
@@ -90,7 +89,7 @@ public interface ApplicationCommandBase extends Identifiable {
         protected abstract void onSlashCommandTriggered(final SlashCommandCreateEvent event);
 
         @Override
-        public Optional<ApplicationCommand> parentCommand() {
+        public final Optional<ApplicationCommandGroup> parentCommand() {
             return _parentCommand;
         }
 

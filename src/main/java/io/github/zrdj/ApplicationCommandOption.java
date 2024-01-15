@@ -1,7 +1,5 @@
-package io.github.zrdj.option;
+package io.github.zrdj;
 
-import io.github.zrdj.Identifiable;
-import io.github.zrdj.command.ApplicationCommandBase;
 import org.javacord.api.interaction.SlashCommandInteraction;
 import org.javacord.api.interaction.SlashCommandOption;
 import org.javacord.api.interaction.SlashCommandOptionType;
@@ -14,9 +12,9 @@ public interface ApplicationCommandOption<E> extends Identifiable {
         return name();
     }
 
-    ApplicationCommandBase command();
+    ApplicationCommand command();
 
-    void optionOf(final ApplicationCommandBase commandBase);
+    void optionOf(final ApplicationCommand commandBase);
 
     E toOptionValue(final SlashCommandInteraction interaction);
 
@@ -29,7 +27,7 @@ public interface ApplicationCommandOption<E> extends Identifiable {
         protected final String _description;
         protected final SlashCommandOptionType _type;
         protected final BiFunction<String, SlashCommandInteraction, E> _mapper;
-        protected ApplicationCommandBase _command;
+        protected ApplicationCommand _command;
 
         public Abstract(final String name, final String description, SlashCommandOptionType type, BiFunction<String, SlashCommandInteraction, E> mapper) {
             _name = name.contains(" ") ? name.replaceAll(" ", "-") : name;
@@ -52,12 +50,12 @@ public interface ApplicationCommandOption<E> extends Identifiable {
         }
 
         @Override
-        public final ApplicationCommandBase command() {
+        public final ApplicationCommand command() {
             return _command;
         }
 
         @Override
-        public final void optionOf(final ApplicationCommandBase command) {
+        public final void optionOf(final ApplicationCommand command) {
             _command = command;
         }
 
