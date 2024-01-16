@@ -5,8 +5,8 @@ import org.javacord.api.interaction.ModalInteraction;
 
 import java.util.function.BiFunction;
 
-public abstract class ModalRequiredOptionBehavior<Type> extends ModalOptionBehavior<Type> {
-    public ModalRequiredOptionBehavior(final TextInputBuilder componentBuilder, final BiFunction<String, ModalInteraction, Type> mapper) {
+public abstract class ApplicationModalRequiredOptionBehavior<Type> extends ApplicationModalOptionBehavior<Type> {
+    public ApplicationModalRequiredOptionBehavior(final TextInputBuilder componentBuilder, final BiFunction<String, ModalInteraction, Type> mapper) {
         super(componentBuilder.setRequired(true).build(), mapper);
     }
 }

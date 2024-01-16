@@ -8,14 +8,14 @@ import org.javacord.api.interaction.SlashCommandOptionType;
 
 import java.util.function.BiFunction;
 
-abstract class OptionBehavior<E> implements ApplicationCommandOption<E> {
+abstract class ApplicationCommandOptionBehavior<E> implements ApplicationCommandOption<E> {
     protected final String _name;
     protected final String _description;
     protected final SlashCommandOptionType _type;
     protected final BiFunction<String, SlashCommandInteraction, E> _mapper;
     protected ApplicationCommand _command;
 
-    public OptionBehavior(final String name, final String description, SlashCommandOptionType type, BiFunction<String, SlashCommandInteraction, E> mapper) {
+    public ApplicationCommandOptionBehavior(final String name, final String description, SlashCommandOptionType type, BiFunction<String, SlashCommandInteraction, E> mapper) {
         _name = name.contains(" ") ? name.replaceAll(" ", "-") : name;
         _description = description;
         _type = type;

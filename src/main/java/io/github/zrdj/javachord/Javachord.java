@@ -1,11 +1,11 @@
 package io.github.zrdj.javachord;
 
-import io.github.zrdj.javachord.command.option.ChannelOptionalOption;
-import io.github.zrdj.javachord.command.option.ChannelRequiredOption;
-import io.github.zrdj.javachord.command.option.OptionalOptionBehavior;
-import io.github.zrdj.javachord.command.option.RequiredOptionBehavior;
-import io.github.zrdj.javachord.modal.option.ModalTextInputOptionalOption;
-import io.github.zrdj.javachord.modal.option.ModalTextInputRequiredOption;
+import io.github.zrdj.javachord.command.option.ApplicationCommandOptionChannelOptional;
+import io.github.zrdj.javachord.command.option.ApplicationCommandOptionChannelRequired;
+import io.github.zrdj.javachord.command.option.ApplicationCommandOptionOptionalBehavior;
+import io.github.zrdj.javachord.command.option.ApplicationCommandOptionRequiredBehavior;
+import io.github.zrdj.javachord.modal.option.ApplicationModalTextInputOptionalOption;
+import io.github.zrdj.javachord.modal.option.ApplicationModalTextInputRequiredOption;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.entity.Mentionable;
 import org.javacord.api.entity.channel.ChannelType;
@@ -25,7 +25,6 @@ import java.util.stream.Collectors;
 public interface Javachord {
     enum Instance implements Javachord {
         Get;
-
         private final List<ApplicationCommand> _commands = new ArrayList<>();
         private final List<GloballyAttachableListener> _listeners = new ArrayList<>();
 
@@ -50,14 +49,14 @@ public interface Javachord {
     interface Modal {
         interface Option {
             interface Required {
-                static ModalTextInputRequiredOption textOption(final String name, final String identifier, final boolean paragraph) {
-                    return new ModalTextInputRequiredOption(new TextInputBuilder(paragraph ? TextInputStyle.PARAGRAPH : TextInputStyle.SHORT, identifier, name));
+                static ApplicationModalTextInputRequiredOption textOption(final String name, final String identifier, final boolean paragraph) {
+                    return new ApplicationModalTextInputRequiredOption(new TextInputBuilder(paragraph ? TextInputStyle.PARAGRAPH : TextInputStyle.SHORT, identifier, name));
                 }
             }
 
             interface Optional {
-                static ModalTextInputOptionalOption textOption(final String name, final String identifier, final boolean paragraph) {
-                    return new ModalTextInputOptionalOption(new TextInputBuilder(paragraph ? TextInputStyle.PARAGRAPH : TextInputStyle.SHORT, identifier, name));
+                static ApplicationModalTextInputOptionalOption textOption(final String name, final String identifier, final boolean paragraph) {
+                    return new ApplicationModalTextInputOptionalOption(new TextInputBuilder(paragraph ? TextInputStyle.PARAGRAPH : TextInputStyle.SHORT, identifier, name));
                 }
             }
         }
@@ -66,70 +65,70 @@ public interface Javachord {
     interface Command {
         interface Option {
             interface Optional {
-                static OptionalOptionBehavior<String> stringOption(final String name, final String description) {
-                    return new OptionalOptionBehavior<>(name, description, SlashCommandOptionType.STRING, (n, e) -> e.getArgumentStringValueByName(n));
+                static ApplicationCommandOptionOptionalBehavior<String> stringOption(final String name, final String description) {
+                    return new ApplicationCommandOptionOptionalBehavior<>(name, description, SlashCommandOptionType.STRING, (n, e) -> e.getArgumentStringValueByName(n));
                 }
 
-                static OptionalOptionBehavior<String> booleanOption(final String name, final String description) {
-                    return new OptionalOptionBehavior<>(name, description, SlashCommandOptionType.BOOLEAN, (n, e) -> e.getArgumentStringValueByName(n));
+                static ApplicationCommandOptionOptionalBehavior<String> booleanOption(final String name, final String description) {
+                    return new ApplicationCommandOptionOptionalBehavior<>(name, description, SlashCommandOptionType.BOOLEAN, (n, e) -> e.getArgumentStringValueByName(n));
                 }
 
-                static OptionalOptionBehavior<String> longOption(final String name, final String description) {
-                    return new OptionalOptionBehavior<>(name, description, SlashCommandOptionType.LONG, (n, e) -> e.getArgumentStringValueByName(n));
+                static ApplicationCommandOptionOptionalBehavior<String> longOption(final String name, final String description) {
+                    return new ApplicationCommandOptionOptionalBehavior<>(name, description, SlashCommandOptionType.LONG, (n, e) -> e.getArgumentStringValueByName(n));
                 }
 
-                static OptionalOptionBehavior<String> decimalOption(final String name, final String description) {
-                    return new OptionalOptionBehavior<>(name, description, SlashCommandOptionType.DECIMAL, (n, e) -> e.getArgumentStringValueByName(n));
+                static ApplicationCommandOptionOptionalBehavior<String> decimalOption(final String name, final String description) {
+                    return new ApplicationCommandOptionOptionalBehavior<>(name, description, SlashCommandOptionType.DECIMAL, (n, e) -> e.getArgumentStringValueByName(n));
                 }
 
-                static OptionalOptionBehavior<ServerChannel> channelOption(final String name, final String description, final List<ChannelType> channelTypes) {
-                    return new ChannelOptionalOption(name, description, channelTypes);
+                static ApplicationCommandOptionOptionalBehavior<ServerChannel> channelOption(final String name, final String description, final List<ChannelType> channelTypes) {
+                    return new ApplicationCommandOptionChannelOptional(name, description, channelTypes);
                 }
 
-                static OptionalOptionBehavior<User> userOption(final String name, final String description) {
-                    return new OptionalOptionBehavior<>(name, description, SlashCommandOptionType.USER, (n, e) -> e.getArgumentUserValueByName(n));
+                static ApplicationCommandOptionOptionalBehavior<User> userOption(final String name, final String description) {
+                    return new ApplicationCommandOptionOptionalBehavior<>(name, description, SlashCommandOptionType.USER, (n, e) -> e.getArgumentUserValueByName(n));
                 }
 
-                static OptionalOptionBehavior<Mentionable> mentionableOption(final String name, final String description) {
-                    return new OptionalOptionBehavior<>(name, description, SlashCommandOptionType.MENTIONABLE, (n, e) -> e.getArgumentMentionableValueByName(n));
+                static ApplicationCommandOptionOptionalBehavior<Mentionable> mentionableOption(final String name, final String description) {
+                    return new ApplicationCommandOptionOptionalBehavior<>(name, description, SlashCommandOptionType.MENTIONABLE, (n, e) -> e.getArgumentMentionableValueByName(n));
                 }
 
-                static OptionalOptionBehavior<Role> roleOption(final String name, final String description) {
-                    return new OptionalOptionBehavior<>(name, description, SlashCommandOptionType.ROLE, (n, e) -> e.getArgumentRoleValueByName(n));
+                static ApplicationCommandOptionOptionalBehavior<Role> roleOption(final String name, final String description) {
+                    return new ApplicationCommandOptionOptionalBehavior<>(name, description, SlashCommandOptionType.ROLE, (n, e) -> e.getArgumentRoleValueByName(n));
                 }
             }
 
             interface Required {
-                static RequiredOptionBehavior<ServerChannel> channelOption(final String name, final String description, final List<ChannelType> channelTypes) {
-                    return new ChannelRequiredOption(name, description, channelTypes);
+                static ApplicationCommandOptionRequiredBehavior<ServerChannel> channelOption(final String name, final String description, final List<ChannelType> channelTypes) {
+                    return new ApplicationCommandOptionChannelRequired(name, description, channelTypes);
                 }
 
-                static RequiredOptionBehavior<User> userOption(final String name, final String description) {
-                    return new RequiredOptionBehavior<>(name, description, SlashCommandOptionType.USER, (n, e) -> e.getArgumentUserValueByName(n).orElseThrow());
+                static ApplicationCommandOptionRequiredBehavior<User> userOption(final String name, final String description) {
+                    return new ApplicationCommandOptionRequiredBehavior<>(name, description, SlashCommandOptionType.USER, (n, e) -> e.getArgumentUserValueByName(n).orElseThrow());
                 }
 
-                static RequiredOptionBehavior<Mentionable> mentionableOption(final String name, final String description) {
-                    return new RequiredOptionBehavior<>(name, description, SlashCommandOptionType.MENTIONABLE, (n, e) -> e.getArgumentMentionableValueByName(n).orElseThrow());
+                static ApplicationCommandOptionRequiredBehavior<Mentionable> mentionableOption(final String name, final String description) {
+                    return new ApplicationCommandOptionRequiredBehavior<>(name, description, SlashCommandOptionType.MENTIONABLE, (n, e) -> e.getArgumentMentionableValueByName(n).orElseThrow());
                 }
 
-                static RequiredOptionBehavior<Role> roleOption(final String name, final String description) {
-                    return new RequiredOptionBehavior<>(name, description, SlashCommandOptionType.ROLE, (n, e) -> e.getArgumentRoleValueByName(n).orElseThrow());
+                static ApplicationCommandOptionRequiredBehavior<Role> roleOption(final String name, final String description) {
+                    return new ApplicationCommandOptionRequiredBehavior<>(name, description, SlashCommandOptionType.ROLE, (n, e) -> e.getArgumentRoleValueByName(n).orElseThrow());
                 }
 
-                static RequiredOptionBehavior<String> stringOption(final String name, final String description) {
-                    return new RequiredOptionBehavior<>(name, description, SlashCommandOptionType.STRING, (n, e) -> e.getArgumentStringValueByName(n).orElseThrow());
+                static ApplicationCommandOptionRequiredBehavior<String> stringOption(final String name, final String description) {
+                    return new ApplicationCommandOptionRequiredBehavior<>(name, description, SlashCommandOptionType.STRING, (n, e) -> e.getArgumentStringValueByName(n).orElseThrow());
                 }
 
-                static RequiredOptionBehavior<String> booleanOption(final String name, final String description) {
-                    return new RequiredOptionBehavior<>(name, description, SlashCommandOptionType.BOOLEAN, (n, e) -> e.getArgumentStringValueByName(n).orElseThrow());
+                static ApplicationCommandOptionRequiredBehavior<String> booleanOption(final String name, final String description) {
+                    return new ApplicationCommandOptionRequiredBehavior<>(name, description, SlashCommandOptionType.BOOLEAN, (n, e) -> e.getArgumentStringValueByName(n).orElseThrow());
                 }
 
-                static RequiredOptionBehavior<String> longOption(final String name, final String description) {
-                    return new RequiredOptionBehavior<>(name, description, SlashCommandOptionType.LONG, (n, e) -> e.getArgumentStringValueByName(n).orElseThrow());
+                static ApplicationCommandOptionRequiredBehavior<String> longOption(final String name, final String description) {
+                    return new ApplicationCommandOptionRequiredBehavior<>(name, description, SlashCommandOptionType.LONG, (n, e) -> e.getArgumentStringValueByName(n).orElseThrow());
                 }
 
-                static RequiredOptionBehavior<String> decimalOption(final String name, final String description) {
-                    return new RequiredOptionBehavior<>(name, description, SlashCommandOptionType.DECIMAL, (n, e) -> e.getArgumentStringValueByName(n).orElseThrow());
+                static ApplicationCommandOptionRequiredBehavior<String> decimalOption(final String name, final String description) {
+                    return new ApplicationCommandOptionRequiredBehavior<>(name, description, SlashCommandOptionType.DECIMAL, (n, e) -> e.getArgumentStringValueByName(n).orElseThrow());
                 }
 
             }

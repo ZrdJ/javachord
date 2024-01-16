@@ -7,10 +7,10 @@ import org.javacord.api.interaction.SlashCommandOptionType;
 
 import java.util.List;
 
-public final class ChannelRequiredOption extends RequiredOptionBehavior<ServerChannel> {
+public final class ApplicationCommandOptionChannelRequired extends ApplicationCommandOptionRequiredBehavior<ServerChannel> {
         private final List<ChannelType> _channelTypes;
 
-        public ChannelRequiredOption(final String name, final String description, final List<ChannelType> channelTypes) {
+        public ApplicationCommandOptionChannelRequired(final String name, final String description, final List<ChannelType> channelTypes) {
             super(name, description, SlashCommandOptionType.CHANNEL, (n, e) -> e.getArgumentChannelValueByName(n).orElseThrow());
             _channelTypes = channelTypes;
         }

@@ -1,10 +1,10 @@
 package io.github.zrdj.javachord.usage;
 
 import io.github.zrdj.javachord.Javachord;
-import io.github.zrdj.javachord.modal.ApplicationModal1;
+import io.github.zrdj.javachord.modal.ApplicationModalBehavior1;
 import org.javacord.api.event.interaction.ModalSubmitEvent;
 
-public class MyModal extends ApplicationModal1<String> {
+public class MyModal extends ApplicationModalBehavior1<String> {
 
     protected MyModal() {
         super(
