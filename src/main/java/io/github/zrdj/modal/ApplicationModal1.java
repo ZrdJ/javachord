@@ -1,10 +1,20 @@
 package io.github.zrdj.modal;
 
-import io.github.zrdj.ApplicationModal;
-import org.javacord.api.entity.message.component.TextInput;
+import io.github.zrdj.ApplicationModalOption;
 import org.javacord.api.event.interaction.ModalSubmitEvent;
 
-abstract class ApplicationModal1 implements ApplicationModal {
+public abstract class ApplicationModal1<E> extends ApplicationModalBehavior {
+    protected final ApplicationModalOption<E> _option1;
 
-    abstract void onInteraction(final ModalSubmitEvent interaction, final String value1);
+    protected ApplicationModal1(final String identifier, final String name, final ApplicationModalOption<E> option1) {
+        super(identifier, name);
+        _option1 = option1;
+    }
+
+    @Override
+    protected final void onModalInteractionTriggered(final ModalSubmitEvent event) {
+        onModalInteraction(event, _option1.toOptionValue(event.getModalInteraction()));
+    }
+
+    abstract void onModalInteraction(final ModalSubmitEvent interaction, final E value1);
 }

@@ -21,7 +21,7 @@ abstract class ApplicationCommandBehavior implements ApplicationCommand, SlashCo
     private final List<ApplicationCommandOption<?>> _options;
     protected DiscordApi _discordApi;
 
-    protected ApplicationCommandBehavior(final String name, final String description, ApplicationCommandGroup parentCommand, List<ApplicationCommandOption<?>> options) {
+    ApplicationCommandBehavior(final String name, final String description, ApplicationCommandGroup parentCommand, List<ApplicationCommandOption<?>> options) {
         _name = name.contains(" ") ? name.replaceAll(" ", "-") : name;
         _description = description;
         _parentCommand = Optional.ofNullable(parentCommand);
@@ -29,7 +29,7 @@ abstract class ApplicationCommandBehavior implements ApplicationCommand, SlashCo
         options.forEach(o -> o.optionOf(this));
     }
 
-    protected ApplicationCommandBehavior(final String name, final String description, List<ApplicationCommandOption<?>> options) {
+    ApplicationCommandBehavior(final String name, final String description, List<ApplicationCommandOption<?>> options) {
         this(name, description, null, options);
     }
 

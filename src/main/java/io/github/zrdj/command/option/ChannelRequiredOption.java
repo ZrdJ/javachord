@@ -1,4 +1,4 @@
-package io.github.zrdj.option;
+package io.github.zrdj.command.option;
 
 import org.javacord.api.entity.channel.ChannelType;
 import org.javacord.api.entity.channel.ServerChannel;
@@ -7,20 +7,12 @@ import org.javacord.api.interaction.SlashCommandOptionType;
 
 import java.util.List;
 
-public interface ChannelRequiredOption extends RequiredOption<ServerChannel> {
-    List<ChannelType> channelTypes();
-
-    final class Channel extends Abstract<ServerChannel> implements ChannelRequiredOption {
+public final class ChannelRequiredOption extends RequiredOptionBehavior<ServerChannel> {
         private final List<ChannelType> _channelTypes;
 
-        public Channel(final String name, final String description, final List<ChannelType> channelTypes) {
+        public ChannelRequiredOption(final String name, final String description, final List<ChannelType> channelTypes) {
             super(name, description, SlashCommandOptionType.CHANNEL, (n, e) -> e.getArgumentChannelValueByName(n).orElseThrow());
             _channelTypes = channelTypes;
-        }
-
-        @Override
-        public List<ChannelType> channelTypes() {
-            return _channelTypes;
         }
 
         @Override
@@ -31,6 +23,5 @@ public interface ChannelRequiredOption extends RequiredOption<ServerChannel> {
                     true,
                     _channelTypes
             );
-        }
     }
 }

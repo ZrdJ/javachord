@@ -17,7 +17,7 @@ public class MySubCommand extends ApplicationCommandBehavior1<String> implements
         super("my sub command",
                 "my sub command description",
                 parent,
-                Javachord.Option.stringRequired("my sub option name", "my sub option description")
+                Javachord.Command.Option.Required.stringOption("my sub option name", "my sub option description")
         );
     }
     @Override
