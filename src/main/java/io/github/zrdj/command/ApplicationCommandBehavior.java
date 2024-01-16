@@ -1,8 +1,8 @@
 package io.github.zrdj.command;
 
-import io.github.zrdj.ApplicationCommandOption;
 import io.github.zrdj.ApplicationCommand;
 import io.github.zrdj.ApplicationCommandGroup;
+import io.github.zrdj.ApplicationCommandOption;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.event.interaction.SlashCommandCreateEvent;
 import org.javacord.api.interaction.SlashCommand;
@@ -84,10 +84,10 @@ abstract class ApplicationCommandBehavior implements ApplicationCommand, SlashCo
 
     @Override
     public final Optional<ApplicationCommand> subCommand() {
-        return Optional.ofNullable(internalSubCommand());
+        return Optional.ofNullable(subCommandInternal());
     }
 
-    protected ApplicationCommand internalSubCommand() {
+    protected ApplicationCommand subCommandInternal() {
         return null;
     }
 

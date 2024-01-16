@@ -17,7 +17,7 @@ public class MyCommand extends ApplicationCommandGroupBehavior {
     }
 
     @Override
-    protected ApplicationCommand internalSubCommand() {
+    protected ApplicationCommand subCommandInternal() {
         return new MySubCommand(this);
     }
 }
