@@ -18,8 +18,8 @@ public final class ChannelRequiredOption extends RequiredOptionBehavior<ServerCh
         @Override
         public SlashCommandOption toSlashCommandOption() {
             return SlashCommandOption.createChannelOption(
-                    getName(),
-                    description(),
+                    _name,
+                    _description,
                     true,
                     _channelTypes
             );

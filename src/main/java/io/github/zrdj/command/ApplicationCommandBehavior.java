@@ -36,27 +36,30 @@ abstract class ApplicationCommandBehavior implements ApplicationCommand, SlashCo
     @Override
     public final String fqdn() {
         return parentCommand()
-                .map(p -> p.fqdn() + " " + getName())
-                .orElse(getName());
+                .map(p -> p.fqdn() + " " + _name)
+                .orElse(_name);
     }
 
     @Override
-    public final void registerListeners(final DiscordApi discordApi) {
+    public final void register(final DiscordApi discordApi) {
         discordApi.addListener(this);
-        subCommand().ifPresent(sc -> sc.registerListeners(discordApi));
+        subCommand().ifPresent(sc -> sc.register(discordApi));
+        onRegisterInternal(discordApi);
     }
+
+    protected abstract void onRegisterInternal(DiscordApi discordApi);
 
     @Override
     public final SlashCommandOption toSlashSubCommand(final DiscordApi discordApi) {
         _discordApi = discordApi;
         var slashCommandOptions = _options.stream().map(ApplicationCommandOption::toSlashCommandOption).collect(Collectors.toList());
-        return SlashCommandOption.createSubcommand(getName(), description(), slashCommandOptions);
+        return SlashCommandOption.createSubcommand(_name, _description, slashCommandOptions);
     }
 
     @Override
     public final SlashCommandBuilder toSlashCommand(final DiscordApi discordApi) {
         _discordApi = discordApi;
-        var builder = SlashCommand.with(getName(), description());
+        var builder = SlashCommand.with(_name, _description);
         for (final ApplicationCommandOption<?> option : _options) {
             builder.addOption(option.toSlashCommandOption());
         }
@@ -86,16 +89,6 @@ abstract class ApplicationCommandBehavior implements ApplicationCommand, SlashCo
 
     protected ApplicationCommand internalSubCommand() {
         return null;
-    }
-
-    @Override
-    public final String getName() {
-        return _name;
-    }
-
-    @Override
-    public final String description() {
-        return _description;
     }
 
 }

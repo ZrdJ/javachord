@@ -2,7 +2,6 @@ package io.github.zrdj.modal.option;
 
 import io.github.zrdj.ApplicationModalOption;
 import org.javacord.api.entity.message.component.LowLevelComponent;
-import org.javacord.api.entity.message.component.LowLevelComponentBuilder;
 import org.javacord.api.entity.message.component.TextInput;
 import org.javacord.api.interaction.ModalInteraction;
 
@@ -17,6 +16,11 @@ abstract class ModalOptionBehavior<Type> implements ApplicationModalOption<Type>
         _identifier = component.getCustomId();
         _component = component;
         _mapper = mapper;
+    }
+
+    @Override
+    public LowLevelComponent component() {
+        return _component;
     }
 
     @Override

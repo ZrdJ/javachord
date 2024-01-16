@@ -16,8 +16,8 @@ public class RequiredOptionBehavior<E> extends OptionBehavior<E> {
     public SlashCommandOption toSlashCommandOption() {
         return SlashCommandOption.create(
                 type(),
-                getName(),
-                description(),
+                _name,
+                _description,
                 true
         );
     }

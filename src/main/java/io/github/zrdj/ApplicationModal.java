@@ -1,6 +1,10 @@
 package io.github.zrdj;
 
 import org.javacord.api.entity.Nameable;
+import org.javacord.api.interaction.MessageComponentInteraction;
 
-public interface ApplicationModal extends Identifiable, Nameable {
+import java.util.concurrent.CompletableFuture;
+
+public interface ApplicationModal {
+    CompletableFuture<Void> respond(final MessageComponentInteraction mci);
 }

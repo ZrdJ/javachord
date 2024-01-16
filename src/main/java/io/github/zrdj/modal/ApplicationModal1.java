@@ -3,11 +3,13 @@ package io.github.zrdj.modal;
 import io.github.zrdj.ApplicationModalOption;
 import org.javacord.api.event.interaction.ModalSubmitEvent;
 
+import java.util.List;
+
 public abstract class ApplicationModal1<E> extends ApplicationModalBehavior {
     protected final ApplicationModalOption<E> _option1;
 
     protected ApplicationModal1(final String identifier, final String name, final ApplicationModalOption<E> option1) {
-        super(identifier, name);
+        super(identifier, name, List.of(option1));
         _option1 = option1;
     }
 
@@ -16,5 +18,5 @@ public abstract class ApplicationModal1<E> extends ApplicationModalBehavior {
         onModalInteraction(event, _option1.toOptionValue(event.getModalInteraction()));
     }
 
-    abstract void onModalInteraction(final ModalSubmitEvent interaction, final E value1);
+    protected abstract void onModalInteraction(final ModalSubmitEvent interaction, final E value1);
 }

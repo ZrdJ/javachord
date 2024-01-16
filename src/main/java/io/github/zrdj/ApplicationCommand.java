@@ -8,8 +8,9 @@ import org.javacord.api.interaction.SlashCommandOption;
 import java.util.Optional;
 
 
-public interface ApplicationCommand extends Nameable, Descriptable, Qualifiable {
-    void registerListeners(final DiscordApi discordApi);
+public interface ApplicationCommand {
+    String fqdn(); // fully qualified discord name
+    void register(final DiscordApi discordApi);
     SlashCommandOption toSlashSubCommand(final DiscordApi discordApi);
 
     SlashCommandBuilder toSlashCommand(final DiscordApi discordApi);

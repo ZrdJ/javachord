@@ -17,8 +17,8 @@ public final class ChannelOptionalOption extends OptionalOptionBehavior<ServerCh
     @Override
     public SlashCommandOption toSlashCommandOption() {
         return SlashCommandOption.createChannelOption(
-                getName(),
-                description(),
+                _name,
+                _description,
                 false,
                 _channelTypes
         );

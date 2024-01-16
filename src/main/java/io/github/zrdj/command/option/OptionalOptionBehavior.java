@@ -15,8 +15,8 @@ public class OptionalOptionBehavior<E> extends OptionBehavior<Optional<E>> {
     public SlashCommandOption toSlashCommandOption() {
         return SlashCommandOption.create(
                 type(),
-                getName(),
-                description(),
+                _name,
+                _description,
                 false
         );
     }

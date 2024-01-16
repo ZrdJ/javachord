@@ -35,7 +35,7 @@ public class Main {
                     commands.forEach(c -> System.out.printf("command registered: %s (%s)%n", c.getName(), c.getId()));
                 })
                 .exceptionally(ExceptionLogger.get());
-        _command.registerListeners(_discord);
+        _command.register(_discord);
         System.out.printf("Discord bot successfully initialized with ID %s%n", _discord.getYourself().getIdAsString());
 
         while (true) {

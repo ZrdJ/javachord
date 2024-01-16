@@ -21,14 +21,14 @@ public interface Javachord {
     interface Modal {
         interface Option {
             interface Required {
-                static ModalTextInputRequiredOption textOption(final String name, final String identifier, final boolean small) {
-                    return new ModalTextInputRequiredOption(new TextInputBuilder(small? TextInputStyle.SHORT : TextInputStyle.PARAGRAPH, identifier, name));
+                static ModalTextInputRequiredOption textOption(final String name, final String identifier, final boolean paragraph) {
+                    return new ModalTextInputRequiredOption(new TextInputBuilder(paragraph? TextInputStyle.PARAGRAPH : TextInputStyle.SHORT, identifier, name));
                 }
             }
 
             interface Optional {
-                static ModalTextInputOptionalOption textOption(final String name, final String identifier, final boolean small) {
-                    return new ModalTextInputOptionalOption(new TextInputBuilder(small? TextInputStyle.SHORT : TextInputStyle.PARAGRAPH, identifier, name));
+                static ModalTextInputOptionalOption textOption(final String name, final String identifier, final boolean paragraph) {
+                    return new ModalTextInputOptionalOption(new TextInputBuilder(paragraph? TextInputStyle.PARAGRAPH : TextInputStyle.SHORT, identifier, name));
                 }
             }
         }

@@ -23,17 +23,13 @@ abstract class OptionBehavior<E> implements ApplicationCommandOption<E> {
     }
 
     @Override
-    public abstract SlashCommandOption toSlashCommandOption();
-
-    @Override
-    public final String getName() {
+    public final String name() {
         return _name;
     }
 
     @Override
-    public final String description() {
-        return _description;
-    }
+    public abstract SlashCommandOption toSlashCommandOption();
+
 
     @Override
     public final ApplicationCommand command() {
