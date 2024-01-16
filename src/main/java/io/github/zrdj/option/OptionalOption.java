@@ -18,7 +18,7 @@ public interface OptionalOption<E> extends ApplicationCommandOption<Optional<E>>
         public SlashCommandOption toSlashCommandOption() {
             return SlashCommandOption.create(
                     type(),
-                    name(),
+                    getName(),
                     description(),
                     false
             );

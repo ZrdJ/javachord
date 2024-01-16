@@ -18,7 +18,7 @@ public interface RequiredOption<E> extends ApplicationCommandOption<E> {
         public SlashCommandOption toSlashCommandOption() {
             return SlashCommandOption.create(
                     type(),
-                    name(),
+                    getName(),
                     description(),
                     true
             );

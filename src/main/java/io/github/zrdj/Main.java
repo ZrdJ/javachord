@@ -10,8 +10,8 @@ import java.util.Set;
 
 public class Main {
     private static DiscordApi _discord;
-    private static String _token = "MTExNTMyNDkzMjUyNDYyMTk3NA.GmOhop.19kXUa-9IugnpAAwRO5j1J5K-jn_kxWOObKrBU";
-    private static long _serverId = 1170295773846589561L;
+    private static String _token = System.getProperty("token");
+    private static long _serverId = Long.parseLong(System.getProperty("serverId"));
     private static MyCommand _command = new MyCommand();
 
     public static void main(String[] args) {

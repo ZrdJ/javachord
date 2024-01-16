@@ -1,20 +1,21 @@
 package io.github.zrdj;
 
+import org.javacord.api.entity.Nameable;
 import org.javacord.api.interaction.SlashCommandInteraction;
 import org.javacord.api.interaction.SlashCommandOption;
 import org.javacord.api.interaction.SlashCommandOptionType;
 
 import java.util.function.BiFunction;
 
-public interface ApplicationCommandOption<E> extends Identifiable {
+public interface ApplicationCommandOption<E> extends Nameable, Descriptable, Qualifiable {
     @Override
     default String fqdn() {
-        return name();
+        return getName();
     }
 
     ApplicationCommand command();
 
-    void optionOf(final ApplicationCommand commandBase);
+    void optionOf(final ApplicationCommand command);
 
     E toOptionValue(final SlashCommandInteraction interaction);
 
@@ -40,7 +41,7 @@ public interface ApplicationCommandOption<E> extends Identifiable {
         public abstract SlashCommandOption toSlashCommandOption();
 
         @Override
-        public final String name() {
+        public final String getName() {
             return _name;
         }
 

@@ -27,7 +27,7 @@ public interface ChannelOptionalOption extends OptionalOption<ServerChannel> {
         @Override
         public SlashCommandOption toSlashCommandOption() {
             return SlashCommandOption.createChannelOption(
-                    name(),
+                    getName(),
                     description(),
                     false,
                     _channelTypes
