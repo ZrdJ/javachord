@@ -11,7 +11,6 @@ import org.javacord.api.listener.interaction.MessageComponentCreateListener;
 import org.javacord.api.util.logging.ExceptionLogger;
 
 public class MySubCommand extends ApplicationCommandBehavior1<String> implements MessageComponentCreateListener {
-
     private final MyModal _modal = new MyModal();
     public MySubCommand(final ApplicationCommandGroupBehavior parent) {
         super("my sub command",

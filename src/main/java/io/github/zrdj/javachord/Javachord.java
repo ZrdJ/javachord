@@ -1,13 +1,16 @@
 package io.github.zrdj.javachord;
 
-import io.github.zrdj.javachord.command.option.autocomplete.*;
-import io.github.zrdj.javachord.command.option.channel.ChannelOptionalOption;
-import io.github.zrdj.javachord.command.option.channel.ChannelRequiredOption;
 import io.github.zrdj.javachord.command.option.OptionalOption;
 import io.github.zrdj.javachord.command.option.RequiredOption;
+import io.github.zrdj.javachord.command.option.autocomplete.LongAutocompleteOptionalOption;
+import io.github.zrdj.javachord.command.option.autocomplete.LongAutocompleteRequiredOption;
+import io.github.zrdj.javachord.command.option.autocomplete.StringAutocompleteOptionalOption;
+import io.github.zrdj.javachord.command.option.autocomplete.StringAutocompleteRequiredOption;
+import io.github.zrdj.javachord.command.option.channel.ChannelOptionalOption;
+import io.github.zrdj.javachord.command.option.channel.ChannelRequiredOption;
 import io.github.zrdj.javachord.command.option.choice.Choice;
-import io.github.zrdj.javachord.modal.option.ApplicationModalTextInputOptionalOption;
-import io.github.zrdj.javachord.modal.option.ApplicationModalTextInputRequiredOption;
+import io.github.zrdj.javachord.modal.option.TextInputOptionalOption;
+import io.github.zrdj.javachord.modal.option.TextInputRequiredOption;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.entity.Mentionable;
 import org.javacord.api.entity.channel.ChannelType;
@@ -17,14 +20,11 @@ import org.javacord.api.entity.message.component.TextInputStyle;
 import org.javacord.api.entity.permission.Role;
 import org.javacord.api.entity.server.Server;
 import org.javacord.api.entity.user.User;
-import org.javacord.api.interaction.SlashCommandInteractionOption;
-import org.javacord.api.interaction.SlashCommandOptionChoice;
 import org.javacord.api.interaction.SlashCommandOptionType;
 import org.javacord.api.listener.GloballyAttachableListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -55,14 +55,14 @@ public interface Javachord {
     interface Modal {
         interface Option {
             interface Required {
-                static ApplicationModalTextInputRequiredOption textOption(final String name, final String identifier, final boolean paragraph) {
-                    return new ApplicationModalTextInputRequiredOption(new TextInputBuilder(paragraph ? TextInputStyle.PARAGRAPH : TextInputStyle.SHORT, identifier, name));
+                static TextInputRequiredOption textOption(final String name, final String identifier, final boolean paragraph) {
+                    return new TextInputRequiredOption(new TextInputBuilder(paragraph ? TextInputStyle.PARAGRAPH : TextInputStyle.SHORT, identifier, name));
                 }
             }
 
             interface Optional {
-                static ApplicationModalTextInputOptionalOption textOption(final String name, final String identifier, final boolean paragraph) {
-                    return new ApplicationModalTextInputOptionalOption(new TextInputBuilder(paragraph ? TextInputStyle.PARAGRAPH : TextInputStyle.SHORT, identifier, name));
+                static TextInputOptionalOption textOption(final String name, final String identifier, final boolean paragraph) {
+                    return new TextInputOptionalOption(new TextInputBuilder(paragraph ? TextInputStyle.PARAGRAPH : TextInputStyle.SHORT, identifier, name));
                 }
             }
         }

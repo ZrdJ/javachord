@@ -5,7 +5,6 @@ import io.github.zrdj.javachord.modal.ApplicationModalBehavior1;
 import org.javacord.api.event.interaction.ModalSubmitEvent;
 
 public class MyModal extends ApplicationModalBehavior1<String> {
-
     protected MyModal() {
         super(
                 "modal"

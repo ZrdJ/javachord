@@ -7,12 +7,12 @@ import org.javacord.api.interaction.ModalInteraction;
 
 import java.util.function.BiFunction;
 
-abstract class ApplicationModalOptionBehavior<Type> implements ApplicationModalOption<Type> {
+abstract class Option<Type> implements ApplicationModalOption<Type> {
     protected final BiFunction<String, ModalInteraction, Type> _mapper;
     protected final LowLevelComponent _component;
     protected final String _identifier;
 
-    ApplicationModalOptionBehavior(final TextInput component, final BiFunction<String, ModalInteraction, Type> mapper) {
+    Option(final TextInput component, final BiFunction<String, ModalInteraction, Type> mapper) {
         _identifier = component.getCustomId();
         _component = component;
         _mapper = mapper;
