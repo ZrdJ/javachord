@@ -4,18 +4,19 @@ import io.github.zrdj.javachord.ApplicationCommand;
 import io.github.zrdj.javachord.ApplicationCommandOption;
 import org.javacord.api.interaction.SlashCommandInteraction;
 import org.javacord.api.interaction.SlashCommandOption;
+import org.javacord.api.interaction.SlashCommandOptionBuilder;
 import org.javacord.api.interaction.SlashCommandOptionType;
 
 import java.util.function.BiFunction;
 
-abstract class ApplicationCommandOptionBehavior<E> implements ApplicationCommandOption<E> {
+abstract class Option<E> implements ApplicationCommandOption<E> {
     protected final String _name;
     protected final String _description;
     protected final SlashCommandOptionType _type;
     protected final BiFunction<String, SlashCommandInteraction, E> _mapper;
     protected ApplicationCommand _command;
 
-    public ApplicationCommandOptionBehavior(final String name, final String description, SlashCommandOptionType type, BiFunction<String, SlashCommandInteraction, E> mapper) {
+    public Option(final String name, final String description, SlashCommandOptionType type, BiFunction<String, SlashCommandInteraction, E> mapper) {
         _name = name.contains(" ") ? name.replaceAll(" ", "-") : name;
         _description = description;
         _type = type;
@@ -29,7 +30,6 @@ abstract class ApplicationCommandOptionBehavior<E> implements ApplicationCommand
 
     @Override
     public abstract SlashCommandOption toSlashCommandOption();
-
 
     @Override
     public final ApplicationCommand command() {
