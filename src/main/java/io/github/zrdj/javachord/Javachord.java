@@ -9,22 +9,27 @@ import io.github.zrdj.javachord.command.option.autocomplete.StringAutocompleteRe
 import io.github.zrdj.javachord.command.option.channel.ChannelOptionalOption;
 import io.github.zrdj.javachord.command.option.channel.ChannelRequiredOption;
 import io.github.zrdj.javachord.command.option.choice.Choice;
+import io.github.zrdj.javachord.component.ButtonComponent;
 import io.github.zrdj.javachord.modal.option.TextInputOptionalOption;
 import io.github.zrdj.javachord.modal.option.TextInputRequiredOption;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.entity.Mentionable;
 import org.javacord.api.entity.channel.ChannelType;
 import org.javacord.api.entity.channel.ServerChannel;
+import org.javacord.api.entity.message.component.ButtonBuilder;
+import org.javacord.api.entity.message.component.ButtonStyle;
 import org.javacord.api.entity.message.component.TextInputBuilder;
 import org.javacord.api.entity.message.component.TextInputStyle;
 import org.javacord.api.entity.permission.Role;
 import org.javacord.api.entity.server.Server;
 import org.javacord.api.entity.user.User;
+import org.javacord.api.interaction.ButtonInteraction;
 import org.javacord.api.interaction.SlashCommandOptionType;
 import org.javacord.api.listener.GloballyAttachableListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -183,6 +188,25 @@ public interface Javachord {
             }
 
 
+        }
+    }
+
+    interface Message {
+
+        static ButtonComponent buttonPrimary(final String identifier, final String label, final Consumer<ButtonInteraction> onClick) {
+            return new ButtonComponent(identifier, label) {
+                @Override
+                protected ButtonBuilder buildComponent() {
+                    return new ButtonBuilder()
+                            .setStyle(ButtonStyle.PRIMARY)
+                            ;
+                }
+
+                @Override
+                protected void onButtonClicked(final ButtonInteraction event) {
+                    onClick.accept(event);
+                }
+            };
         }
     }
 }
