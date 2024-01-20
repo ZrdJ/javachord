@@ -1,6 +1,5 @@
 package io.github.zrdj.javachord.modal;
 
-import io.github.zrdj.javachord.ApplicationModalOption;
 import org.javacord.api.event.interaction.ModalSubmitEvent;
 
 import java.util.List;

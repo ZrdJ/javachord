@@ -1,5 +1,6 @@
 package io.github.zrdj.javachord;
 
+import io.github.zrdj.javachord.command.ApplicationCommand;
 import io.github.zrdj.javachord.command.option.OptionalOption;
 import io.github.zrdj.javachord.command.option.RequiredOption;
 import io.github.zrdj.javachord.command.option.autocomplete.LongAutocompleteOptionalOption;
@@ -9,7 +10,9 @@ import io.github.zrdj.javachord.command.option.autocomplete.StringAutocompleteRe
 import io.github.zrdj.javachord.command.option.channel.ChannelOptionalOption;
 import io.github.zrdj.javachord.command.option.channel.ChannelRequiredOption;
 import io.github.zrdj.javachord.command.option.choice.Choice;
-import io.github.zrdj.javachord.component.ButtonComponent;
+import io.github.zrdj.javachord.component.button.ButtonComponent;
+import io.github.zrdj.javachord.component.select.SelectMenuChoice;
+import io.github.zrdj.javachord.error.JavachordConstraintError;
 import io.github.zrdj.javachord.modal.option.TextInputOptionalOption;
 import io.github.zrdj.javachord.modal.option.TextInputRequiredOption;
 import org.javacord.api.DiscordApi;
@@ -57,6 +60,20 @@ public interface Javachord {
         }
     }
 
+    interface Constraint {
+        static void ensureIdentifier(final String identifier) {
+            if (identifier == null || identifier.trim().isEmpty()) {
+                throw new JavachordConstraintError("Identifier missing. Did you forget to define a proper identifier?");
+            }
+        }
+
+        static <T> void ensureChoices(final List<SelectMenuChoice<T>> choices) {
+            if (choices.size() != choices.stream().map(SelectMenuChoice::value).distinct().count()) {
+                throw new JavachordConstraintError("Choices must be unique. Did you provide the same value for multiple choices?");
+            }
+        }
+
+    }
     interface Modal {
         interface Option {
             interface Required {
@@ -193,20 +210,83 @@ public interface Javachord {
 
     interface Message {
 
-        static ButtonComponent buttonPrimary(final String identifier, final String label, final Consumer<ButtonInteraction> onClick) {
-            return new ButtonComponent(identifier, label) {
-                @Override
-                protected ButtonBuilder buildComponent() {
-                    return new ButtonBuilder()
-                            .setStyle(ButtonStyle.PRIMARY)
-                            ;
-                }
+        interface Button {
+            static ButtonComponent primary(final String identifier, final String label, final Consumer<ButtonInteraction> onClick) {
+                return new ButtonComponent(identifier, label) {
 
-                @Override
-                protected void onButtonClicked(final ButtonInteraction event) {
-                    onClick.accept(event);
-                }
-            };
+                    @Override
+                    protected ButtonBuilder configureComponent(final ButtonBuilder builder) {
+                        return builder.setStyle(ButtonStyle.PRIMARY);
+                    }
+
+                    @Override
+                    protected void onButtonClicked(final ButtonInteraction event) {
+                        onClick.accept(event);
+                    }
+                };
+            }
+
+            static ButtonComponent secondary(final String identifier, final String label, final Consumer<ButtonInteraction> onClick) {
+                return new ButtonComponent(identifier, label) {
+
+                    @Override
+                    protected ButtonBuilder configureComponent(final ButtonBuilder builder) {
+                        return builder.setStyle(ButtonStyle.SECONDARY);
+                    }
+
+                    @Override
+                    protected void onButtonClicked(final ButtonInteraction event) {
+                        onClick.accept(event);
+                    }
+                };
+            }
+
+            static ButtonComponent danger(final String identifier, final String label, final Consumer<ButtonInteraction> onClick) {
+                return new ButtonComponent(identifier, label) {
+
+                    @Override
+                    protected ButtonBuilder configureComponent(final ButtonBuilder builder) {
+                        return builder.setStyle(ButtonStyle.DANGER);
+                    }
+
+                    @Override
+                    protected void onButtonClicked(final ButtonInteraction event) {
+                        onClick.accept(event);
+                    }
+                };
+            }
+
+            static ButtonComponent success(final String identifier, final String label, final Consumer<ButtonInteraction> onClick) {
+                return new ButtonComponent(identifier, label) {
+
+                    @Override
+                    protected ButtonBuilder configureComponent(final ButtonBuilder builder) {
+                        return builder.setStyle(ButtonStyle.SUCCESS);
+                    }
+
+                    @Override
+                    protected void onButtonClicked(final ButtonInteraction event) {
+                        onClick.accept(event);
+                    }
+                };
+            }
+
+            static ButtonComponent link(final String identifier, final String label, final String url, final Consumer<ButtonInteraction> onClick) {
+                return new ButtonComponent(identifier, label) {
+
+                    @Override
+                    protected ButtonBuilder configureComponent(final ButtonBuilder builder) {
+                        return builder
+                                .setUrl(url)
+                                .setStyle(ButtonStyle.LINK);
+                    }
+
+                    @Override
+                    protected void onButtonClicked(final ButtonInteraction event) {
+                        onClick.accept(event);
+                    }
+                };
+            }
         }
     }
 }

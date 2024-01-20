@@ -1,7 +1,5 @@
 package io.github.zrdj.javachord.modal;
 
-import io.github.zrdj.javachord.ApplicationModal;
-import io.github.zrdj.javachord.ApplicationModalOption;
 import io.github.zrdj.javachord.Javachord;
 import org.javacord.api.entity.message.component.ActionRow;
 import org.javacord.api.entity.message.component.HighLevelComponent;
@@ -19,6 +17,7 @@ abstract class ApplicationModalBehavior implements ApplicationModal, ModalSubmit
     private final List<HighLevelComponent> _discordOptions;
 
     ApplicationModalBehavior(final String identifier, final String name, final List<ApplicationModalOption<?>> options) {
+        Javachord.Constraint.ensureIdentifier(identifier);
         _identifier = identifier;
         _name = name;
         _discordOptions = options.stream().map(o -> ActionRow.of(o.component())).collect(Collectors.toList());

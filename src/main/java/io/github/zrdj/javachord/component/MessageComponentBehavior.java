@@ -1,17 +1,28 @@
 package io.github.zrdj.javachord.component;
 
 import io.github.zrdj.javachord.Javachord;
-import io.github.zrdj.javachord.MessageComponent;
 import org.javacord.api.event.interaction.MessageComponentCreateEvent;
 import org.javacord.api.interaction.MessageComponentInteraction;
 import org.javacord.api.listener.interaction.MessageComponentCreateListener;
 
-abstract class MessageComponentBehavior implements MessageComponent, MessageComponentCreateListener {
+public abstract class MessageComponentBehavior implements MessageComponent, MessageComponentCreateListener {
     protected final String _identifier;
+    protected boolean _disabled = false;
 
     public MessageComponentBehavior(final String identifier) {
+        Javachord.Constraint.ensureIdentifier(identifier);
         _identifier = identifier;
         Javachord.Instance.Get.addListener(this);
+    }
+
+    @Override
+    public final void enable() {
+        _disabled = false;
+    }
+
+    @Override
+    public final void disabled() {
+        _disabled = true;
     }
 
     @Override

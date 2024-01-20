@@ -1,4 +1,4 @@
-package io.github.zrdj.javachord;
+package io.github.zrdj.javachord.modal;
 
 import org.javacord.api.interaction.MessageComponentInteraction;
 

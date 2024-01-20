@@ -1,6 +1,5 @@
 package io.github.zrdj.javachord.command;
 
-import io.github.zrdj.javachord.ApplicationCommandGroup;
 import org.javacord.api.event.interaction.SlashCommandCreateEvent;
 
 import java.util.Collections;

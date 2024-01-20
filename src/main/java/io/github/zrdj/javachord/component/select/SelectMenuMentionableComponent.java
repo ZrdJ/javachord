@@ -1,5 +1,6 @@
-package io.github.zrdj.javachord.component;
+package io.github.zrdj.javachord.component.select;
 
+import io.github.zrdj.javachord.component.MessageComponentBehavior;
 import org.javacord.api.entity.Mentionable;
 import org.javacord.api.entity.message.component.ComponentType;
 import org.javacord.api.entity.message.component.LowLevelComponent;
@@ -25,6 +26,7 @@ public abstract class SelectMenuMentionableComponent extends MessageComponentBeh
     @Override
     public LowLevelComponent component() {
         return new SelectMenuBuilder(ComponentType.SELECT_MENU_MENTIONABLE, _identifier)
+                .setDisabled(_disabled)
                 .build();
     }
 }

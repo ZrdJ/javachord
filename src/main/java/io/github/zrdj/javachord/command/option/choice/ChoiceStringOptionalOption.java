@@ -10,9 +10,9 @@ import java.util.List;
 public class ChoiceStringOptionalOption extends OptionalOption<String> {
     private final List<Choice<String>> _choices;
 
-    public ChoiceStringOptionalOption(final String name, final String description, final List<Choice<String>> channelTypes) {
+    public ChoiceStringOptionalOption(final String name, final String description, final List<Choice<String>> choices) {
         super(name, description, SlashCommandOptionType.CHANNEL, (n, e) -> e.getArgumentStringValueByName(n));
-        _choices = channelTypes;
+        _choices = choices;
     }
 
     @Override

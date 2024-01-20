@@ -1,4 +1,4 @@
-package io.github.zrdj.javachord;
+package io.github.zrdj.javachord.command;
 
 import org.javacord.api.interaction.SlashCommandInteraction;
 import org.javacord.api.interaction.SlashCommandOption;

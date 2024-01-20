@@ -1,6 +1,5 @@
 package io.github.zrdj.javachord.command;
 
-import io.github.zrdj.javachord.ApplicationCommandOption;
 import org.javacord.api.event.interaction.SlashCommandCreateEvent;
 import org.javacord.api.interaction.SlashCommandInteraction;
 

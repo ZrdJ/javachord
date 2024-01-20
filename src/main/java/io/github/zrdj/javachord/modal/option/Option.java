@@ -1,6 +1,6 @@
 package io.github.zrdj.javachord.modal.option;
 
-import io.github.zrdj.javachord.ApplicationModalOption;
+import io.github.zrdj.javachord.modal.ApplicationModalOption;
 import org.javacord.api.entity.message.component.LowLevelComponent;
 import org.javacord.api.entity.message.component.TextInput;
 import org.javacord.api.interaction.ModalInteraction;

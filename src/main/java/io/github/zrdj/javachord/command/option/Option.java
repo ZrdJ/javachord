@@ -1,10 +1,9 @@
 package io.github.zrdj.javachord.command.option;
 
-import io.github.zrdj.javachord.ApplicationCommand;
-import io.github.zrdj.javachord.ApplicationCommandOption;
+import io.github.zrdj.javachord.command.ApplicationCommand;
+import io.github.zrdj.javachord.command.ApplicationCommandOption;
 import org.javacord.api.interaction.SlashCommandInteraction;
 import org.javacord.api.interaction.SlashCommandOption;
-import org.javacord.api.interaction.SlashCommandOptionBuilder;
 import org.javacord.api.interaction.SlashCommandOptionType;
 
 import java.util.function.BiFunction;

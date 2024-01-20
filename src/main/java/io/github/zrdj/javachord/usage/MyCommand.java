@@ -1,6 +1,6 @@
 package io.github.zrdj.javachord.usage;
 
-import io.github.zrdj.javachord.ApplicationCommand;
+import io.github.zrdj.javachord.command.ApplicationCommand;
 import io.github.zrdj.javachord.command.ApplicationCommandGroupBehavior;
 
 import java.util.List;
