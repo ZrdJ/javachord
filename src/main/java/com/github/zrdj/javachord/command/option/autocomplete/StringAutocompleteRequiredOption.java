@@ -7,6 +7,7 @@ import org.javacord.api.interaction.SlashCommandOptionType;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public abstract class StringAutocompleteRequiredOption extends AutocompleteRequiredOption<String> {
     public StringAutocompleteRequiredOption(final String name, final String description) {
@@ -16,7 +17,7 @@ public abstract class StringAutocompleteRequiredOption extends AutocompleteRequi
     @Override
     protected final List<SlashCommandOptionChoice> onAutocomplete(final Optional<SlashCommandInteractionOption> option) {
         return onAutocompleteChoice(option.flatMap(SlashCommandInteractionOption::getStringValue))
-                .stream().map(c -> SlashCommandOptionChoice.create(c.name(), c.value())).toList();
+                .stream().map(c -> SlashCommandOptionChoice.create(c.name(), c.value())).collect(Collectors.toList());
     }
 
     protected abstract List<Choice<String>> onAutocompleteChoice(final Optional<String> option);

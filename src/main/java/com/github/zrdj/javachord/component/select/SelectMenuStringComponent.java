@@ -26,7 +26,7 @@ public abstract class SelectMenuStringComponent<T> extends MessageComponentBehav
     @Override
     protected final void onInteraction(final MessageComponentInteraction event) {
         var interaction = event.asSelectMenuInteraction().get();
-        var choices = interaction.getChosenOptions().stream().map(o -> _choiceByValue.get(o.getValue())).toList();
+        var choices = interaction.getChosenOptions().stream().map(o -> _choiceByValue.get(o.getValue())).collect(Collectors.toList());
         onChoicesSelected(interaction, choices);
     }
 
@@ -34,7 +34,7 @@ public abstract class SelectMenuStringComponent<T> extends MessageComponentBehav
 
     @Override
     public final LowLevelComponent component() {
-        var options = _choices.stream().map(SelectMenuChoice::toSelectMenuOption).toList();
+        var options = _choices.stream().map(SelectMenuChoice::toSelectMenuOption).collect(Collectors.toList());
         return new SelectMenuBuilder(ComponentType.SELECT_MENU_STRING, _identifier)
                 .addOptions(options)
                 .setDisabled(_disabled)

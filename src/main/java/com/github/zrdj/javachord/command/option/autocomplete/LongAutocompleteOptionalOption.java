@@ -7,6 +7,7 @@ import org.javacord.api.interaction.SlashCommandOptionType;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public abstract class LongAutocompleteOptionalOption  extends AutocompleteOptionalOption<Long>{
     public LongAutocompleteOptionalOption(final String name, final String description) {
@@ -16,7 +17,7 @@ public abstract class LongAutocompleteOptionalOption  extends AutocompleteOption
     @Override
     protected final List<SlashCommandOptionChoice> onAutocomplete(final Optional<SlashCommandInteractionOption> option) {
         return onAutocompleteChoice(option.flatMap(SlashCommandInteractionOption::getLongValue))
-                .stream().map(c -> SlashCommandOptionChoice.create(c.name(), c.value())).toList();
+                .stream().map(c -> SlashCommandOptionChoice.create(c.name(), c.value())).collect(Collectors.toList());
     }
 
     protected abstract List<Choice<Long>> onAutocompleteChoice(final Optional<Long> option);

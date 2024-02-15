@@ -6,6 +6,7 @@ import org.javacord.api.interaction.SlashCommandOptionChoice;
 import org.javacord.api.interaction.SlashCommandOptionType;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ChoiceLongRequiredOption extends RequiredOption<Long> {
     private final List<Choice<Long>> _choices;
@@ -17,7 +18,7 @@ public class ChoiceLongRequiredOption extends RequiredOption<Long> {
 
     @Override
     protected final SlashCommandOptionBuilder buildSlashCommandOption(final SlashCommandOptionBuilder builder) {
-        var choices = _choices.stream().map(c -> SlashCommandOptionChoice.create(c.name(), c.value())).toList();
+        var choices = _choices.stream().map(c -> SlashCommandOptionChoice.create(c.name(), c.value())).collect(Collectors.toList());
         return builder.setChoices(choices);
     }
 }
