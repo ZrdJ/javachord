@@ -102,8 +102,8 @@ public interface Javachord {
         interface Option {
             interface Autocomplete {
                 interface Optional {
-                    static OptionalOption<String> stringOption(final String name, final String description, final Function<java.util.Optional<String>, List<Choice<String>>> autocomplete) {
-                        return new StringAutocompleteOptionalOption(name, description) {
+                    static OptionalOption<String> stringOption(final String name, final String description, final ApplicationCommand parent,final Function<java.util.Optional<String>, List<Choice<String>>> autocomplete) {
+                        return new StringAutocompleteOptionalOption(name, description, parent) {
 
                             @Override
                             protected List<Choice<String>> onAutocompleteChoice(final java.util.Optional<String> option) {
@@ -112,8 +112,8 @@ public interface Javachord {
                         };
                     }
 
-                    static OptionalOption<Long> longOption(final String name, final String description, final Function<java.util.Optional<Long>, List<Choice<Long>>> autocomplete) {
-                        return new LongAutocompleteOptionalOption(name, description) {
+                    static OptionalOption<Long> longOption(final String name, final String description, final ApplicationCommand parent, final Function<java.util.Optional<Long>, List<Choice<Long>>> autocomplete) {
+                        return new LongAutocompleteOptionalOption(name, description, parent) {
                             @Override
                             protected List<Choice<Long>> onAutocompleteChoice(final java.util.Optional<Long> option) {
                                 return autocomplete.apply(option);
@@ -123,8 +123,8 @@ public interface Javachord {
 
                 }
                 interface Required {
-                    static RequiredOption<String> stringOption(final String name, final String description, final Function<java.util.Optional<String>, List<Choice<String>>> autocomplete) {
-                        return new StringAutocompleteRequiredOption(name, description) {
+                    static RequiredOption<String> stringOption(final String name, final String description, final ApplicationCommand parent, final Function<java.util.Optional<String>, List<Choice<String>>> autocomplete) {
+                        return new StringAutocompleteRequiredOption(name, description, parent) {
                             @Override
                             protected List<Choice<String>> onAutocompleteChoice(final java.util.Optional<String> option) {
                                 return autocomplete.apply(option);
@@ -132,8 +132,8 @@ public interface Javachord {
                         };
                     }
 
-                    static RequiredOption<Long> longOption(final String name, final String description, final Function<java.util.Optional<Long>, List<Choice<Long>>> autocomplete) {
-                        return new LongAutocompleteRequiredOption(name, description) {
+                    static RequiredOption<Long> longOption(final String name, final String description, final ApplicationCommand parent,final Function<java.util.Optional<Long>, List<Choice<Long>>> autocomplete) {
+                        return new LongAutocompleteRequiredOption(name, description, parent) {
                             @Override
                             protected List<Choice<Long>> onAutocompleteChoice(final java.util.Optional<Long> option) {
                                 return autocomplete.apply(option);
