@@ -1,5 +1,6 @@
 package com.github.zrdj.javachord.command.option.autocomplete;
 
+import com.github.zrdj.javachord.Javachord;
 import com.github.zrdj.javachord.command.option.RequiredOption;
 import org.javacord.api.event.interaction.AutocompleteCreateEvent;
 import org.javacord.api.interaction.*;
@@ -13,6 +14,7 @@ import java.util.function.BiFunction;
 abstract class AutocompleteRequiredOption<E> extends RequiredOption<E> implements AutocompleteCreateListener {
     public AutocompleteRequiredOption(final String name, final String description, final SlashCommandOptionType type, final BiFunction<String, SlashCommandInteraction, E> mapper) {
         super(name, description, type, mapper);
+        Javachord.Instance.Get.addListener(this);
     }
 
     @Override
