@@ -27,6 +27,7 @@ import org.javacord.api.entity.permission.Role;
 import org.javacord.api.entity.server.Server;
 import org.javacord.api.entity.user.User;
 import org.javacord.api.interaction.ButtonInteraction;
+import org.javacord.api.interaction.MessageComponentInteraction;
 import org.javacord.api.interaction.SlashCommandOptionType;
 import org.javacord.api.listener.GloballyAttachableListener;
 
@@ -211,7 +212,7 @@ public interface Javachord {
     interface Message {
 
         interface Button {
-            static ButtonComponent primary(final String identifier, final String label, final Consumer<ButtonInteraction> onClick) {
+            static ButtonComponent primary(final String identifier, final String label, final Consumer<MessageComponentInteraction> onClick) {
                 return new ButtonComponent(identifier, label) {
 
                     @Override
@@ -220,13 +221,13 @@ public interface Javachord {
                     }
 
                     @Override
-                    protected void onButtonClicked(final ButtonInteraction event) {
+                    protected void onButtonClicked(final MessageComponentInteraction event) {
                         onClick.accept(event);
                     }
                 };
             }
 
-            static ButtonComponent secondary(final String identifier, final String label, final Consumer<ButtonInteraction> onClick) {
+            static ButtonComponent secondary(final String identifier, final String label, final Consumer<MessageComponentInteraction> onClick) {
                 return new ButtonComponent(identifier, label) {
 
                     @Override
@@ -235,13 +236,13 @@ public interface Javachord {
                     }
 
                     @Override
-                    protected void onButtonClicked(final ButtonInteraction event) {
+                    protected void onButtonClicked(final MessageComponentInteraction event) {
                         onClick.accept(event);
                     }
                 };
             }
 
-            static ButtonComponent danger(final String identifier, final String label, final Consumer<ButtonInteraction> onClick) {
+            static ButtonComponent danger(final String identifier, final String label, final Consumer<MessageComponentInteraction> onClick) {
                 return new ButtonComponent(identifier, label) {
 
                     @Override
@@ -250,13 +251,13 @@ public interface Javachord {
                     }
 
                     @Override
-                    protected void onButtonClicked(final ButtonInteraction event) {
+                    protected void onButtonClicked(final MessageComponentInteraction event) {
                         onClick.accept(event);
                     }
                 };
             }
 
-            static ButtonComponent success(final String identifier, final String label, final Consumer<ButtonInteraction> onClick) {
+            static ButtonComponent success(final String identifier, final String label, final Consumer<MessageComponentInteraction> onClick) {
                 return new ButtonComponent(identifier, label) {
 
                     @Override
@@ -265,13 +266,13 @@ public interface Javachord {
                     }
 
                     @Override
-                    protected void onButtonClicked(final ButtonInteraction event) {
+                    protected void onButtonClicked(final MessageComponentInteraction event) {
                         onClick.accept(event);
                     }
                 };
             }
 
-            static ButtonComponent link(final String identifier, final String label, final String url, final Consumer<ButtonInteraction> onClick) {
+            static ButtonComponent link(final String identifier, final String label, final String url, final Consumer<MessageComponentInteraction> onClick) {
                 return new ButtonComponent(identifier, label) {
 
                     @Override
@@ -282,7 +283,7 @@ public interface Javachord {
                     }
 
                     @Override
-                    protected void onButtonClicked(final ButtonInteraction event) {
+                    protected void onButtonClicked(final MessageComponentInteraction event) {
                         onClick.accept(event);
                     }
                 };

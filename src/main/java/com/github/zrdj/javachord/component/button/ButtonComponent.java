@@ -18,13 +18,13 @@ public abstract class ButtonComponent extends MessageComponentBehavior {
 
     @Override
     protected final void onInteraction(final MessageComponentInteraction event) {
-        onButtonClicked(event.asButtonInteraction().get());
+        onButtonClicked(event);
     }
 
     public void updateLabel(final String label) {
         _label = label;
     }
-    protected abstract void onButtonClicked(final ButtonInteraction event);
+    protected abstract void onButtonClicked(final MessageComponentInteraction event);
 
     @Override
     public final LowLevelComponent component() {
