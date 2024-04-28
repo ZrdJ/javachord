@@ -1,6 +1,5 @@
 package com.github.zrdj.javachord.command.option.autocomplete;
 
-import com.github.zrdj.javachord.command.ApplicationCommand;
 import com.github.zrdj.javachord.command.option.choice.Choice;
 import org.javacord.api.interaction.SlashCommandInteractionOption;
 import org.javacord.api.interaction.SlashCommandOptionChoice;
@@ -11,8 +10,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public abstract class LongAutocompleteOptionalOption  extends AutocompleteOptionalOption<Long>{
-    public LongAutocompleteOptionalOption(final String name, final String description, final ApplicationCommand parent) {
-        super(name, description, SlashCommandOptionType.LONG, parent,(id, interaction) -> interaction.getArgumentLongValueByName(id));
+    public LongAutocompleteOptionalOption(final String name, final String description) {
+        super(name, description, SlashCommandOptionType.LONG, (id, interaction) -> interaction.getArgumentLongValueByName(id));
     }
 
     @Override
