@@ -26,7 +26,6 @@ import org.javacord.api.entity.message.component.TextInputStyle;
 import org.javacord.api.entity.permission.Role;
 import org.javacord.api.entity.server.Server;
 import org.javacord.api.entity.user.User;
-import org.javacord.api.interaction.ButtonInteraction;
 import org.javacord.api.interaction.MessageComponentInteraction;
 import org.javacord.api.interaction.SlashCommandOptionType;
 import org.javacord.api.listener.GloballyAttachableListener;
@@ -34,6 +33,8 @@ import org.javacord.api.listener.GloballyAttachableListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -52,18 +53,18 @@ public interface Javachord {
         public void addListener(final GloballyAttachableListener listener) {
             _listeners.add(listener);
         }
-        public void register(final DiscordApi discordApi) {
+        public CompletableFuture<Set<org.javacord.api.interaction.ApplicationCommand>> register(final DiscordApi discordApi) {
             discordInstance = discordApi;
             var commandSet = _commands.stream().map(ApplicationCommand::toSlashCommand).collect(Collectors.toSet());
-            discordApi.bulkOverwriteGlobalApplicationCommands(commandSet);
             _listeners.forEach(discordApi::addListener);
+            return discordApi.bulkOverwriteGlobalApplicationCommands(commandSet);
         }
-        public void register(final DiscordApi discordApi, final Server server) {
+        public CompletableFuture<Set<org.javacord.api.interaction.ApplicationCommand>> register(final DiscordApi discordApi, final Server server) {
             discordInstance = discordApi;
             serverInstance = Optional.of(server);
             var commandSet = _commands.stream().map(ApplicationCommand::toSlashCommand).collect(Collectors.toSet());
-            discordApi.bulkOverwriteServerApplicationCommands(server, commandSet);
             _listeners.forEach(discordApi::addListener);
+            return discordApi.bulkOverwriteServerApplicationCommands(server, commandSet);
         }
     }
 
