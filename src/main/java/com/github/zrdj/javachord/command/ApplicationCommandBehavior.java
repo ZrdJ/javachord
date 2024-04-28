@@ -25,10 +25,13 @@ abstract class ApplicationCommandBehavior implements ApplicationCommand, SlashCo
         _description = description;
         _parentCommand = Optional.ofNullable(parentCommand);
         _options = options;
+        _parentCommand.ifPresent(p -> p.registerSubCommand(this));
         options.forEach(o -> o.optionOf(this));
         Javachord.Instance.Get.addListener(this);
+        // Only add "root" commands, that are either a command group ..
         if (this instanceof ApplicationCommandGroupBehavior) {
             Javachord.Instance.Get.addCommand(this);
+            // .. or a standalone command (without a parent)
         } else if(_parentCommand.isEmpty()) {
             Javachord.Instance.Get.addCommand(this);
         }
