@@ -190,16 +190,16 @@ public interface Javachord {
                     return new RequiredOption<>(name, description, SlashCommandOptionType.STRING, (n, e) -> e.getArgumentStringValueByName(n).orElseThrow());
                 }
 
-                static RequiredOption<String> booleanOption(final String name, final String description) {
-                    return new RequiredOption<>(name, description, SlashCommandOptionType.BOOLEAN, (n, e) -> e.getArgumentStringValueByName(n).orElseThrow());
+                static RequiredOption<Boolean> booleanOption(final String name, final String description) {
+                    return new RequiredOption<>(name, description, SlashCommandOptionType.BOOLEAN, (n, e) -> e.getArgumentBooleanValueByName(n).orElseThrow());
                 }
 
-                static RequiredOption<String> longOption(final String name, final String description) {
-                    return new RequiredOption<>(name, description, SlashCommandOptionType.LONG, (n, e) -> e.getArgumentStringValueByName(n).orElseThrow());
+                static RequiredOption<Long> longOption(final String name, final String description) {
+                    return new RequiredOption<>(name, description, SlashCommandOptionType.LONG, (n, e) -> e.getArgumentLongValueByName(n).orElseThrow());
                 }
 
-                static RequiredOption<String> decimalOption(final String name, final String description) {
-                    return new RequiredOption<>(name, description, SlashCommandOptionType.DECIMAL, (n, e) -> e.getArgumentStringValueByName(n).orElseThrow());
+                static RequiredOption<Double> decimalOption(final String name, final String description) {
+                    return new RequiredOption<>(name, description, SlashCommandOptionType.DECIMAL, (n, e) -> e.getArgumentDecimalValueByName(n).orElseThrow());
                 }
 
             }

@@ -12,7 +12,7 @@ public class ChoiceLongOptionalOption extends OptionalOption<Long> {
     private final List<Choice<Long>> _choices;
 
     public ChoiceLongOptionalOption(final String name, final String description, final List<Choice<Long>> channelTypes) {
-        super(name, description, SlashCommandOptionType.CHANNEL, (n, e) -> e.getArgumentLongValueByName(n));
+        super(name, description, SlashCommandOptionType.LONG, (n, e) -> e.getArgumentLongValueByName(n));
         _choices = channelTypes;
     }
 

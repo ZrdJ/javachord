@@ -12,7 +12,7 @@ public class ChoiceStringOptionalOption extends OptionalOption<String> {
     private final List<Choice<String>> _choices;
 
     public ChoiceStringOptionalOption(final String name, final String description, final List<Choice<String>> choices) {
-        super(name, description, SlashCommandOptionType.CHANNEL, (n, e) -> e.getArgumentStringValueByName(n));
+        super(name, description, SlashCommandOptionType.STRING, (n, e) -> e.getArgumentStringValueByName(n));
         _choices = choices;
     }
 

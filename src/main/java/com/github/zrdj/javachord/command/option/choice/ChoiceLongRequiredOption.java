@@ -12,7 +12,7 @@ public class ChoiceLongRequiredOption extends RequiredOption<Long> {
     private final List<Choice<Long>> _choices;
 
     public ChoiceLongRequiredOption(final String name, final String description, final List<Choice<Long>> channelTypes) {
-        super(name, description, SlashCommandOptionType.CHANNEL, (n, e) -> e.getArgumentLongValueByName(n).orElseThrow());
+        super(name, description, SlashCommandOptionType.LONG, (n, e) -> e.getArgumentLongValueByName(n).orElseThrow());
         _choices = channelTypes;
     }
 

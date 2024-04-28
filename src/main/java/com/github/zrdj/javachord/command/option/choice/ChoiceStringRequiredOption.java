@@ -12,7 +12,7 @@ public class ChoiceStringRequiredOption extends RequiredOption<String> {
     private final List<Choice<String>> _choices;
 
     public ChoiceStringRequiredOption(final String name, final String description, final List<Choice<String>> channelTypes) {
-        super(name, description, SlashCommandOptionType.CHANNEL, (n, e) -> e.getArgumentStringValueByName(n).orElseThrow());
+        super(name, description, SlashCommandOptionType.STRING, (n, e) -> e.getArgumentStringValueByName(n).orElseThrow());
         _choices = channelTypes;
     }
 
