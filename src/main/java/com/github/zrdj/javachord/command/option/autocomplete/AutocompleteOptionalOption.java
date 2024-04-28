@@ -24,6 +24,9 @@ abstract class AutocompleteOptionalOption<E> extends OptionalOption<E> implement
 
     @Override
     public final void onAutocompleteCreate(final AutocompleteCreateEvent event) {
+        if (!_command.fqdn().equalsIgnoreCase(event.getAutocompleteInteraction().getFullCommandName())) {
+            return;
+        }
         var choices = onAutocomplete(event.getAutocompleteInteraction().getArgumentByName(_name));
         event.getAutocompleteInteraction()
                 .respondWithChoices(choices)
