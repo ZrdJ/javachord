@@ -33,6 +33,7 @@ import org.javacord.api.listener.GloballyAttachableListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -42,6 +43,8 @@ public interface Javachord {
         Get;
         private final List<ApplicationCommand> _commands = new ArrayList<>();
         private final List<GloballyAttachableListener> _listeners = new ArrayList<>();
+        public DiscordApi discordInstance;
+        public Optional<Server> serverInstance = Optional.empty();
 
         public void addCommand(final ApplicationCommand command) {
             _commands.add(command);
@@ -50,11 +53,14 @@ public interface Javachord {
             _listeners.add(listener);
         }
         public void register(final DiscordApi discordApi) {
+            discordInstance = discordApi;
             var commandSet = _commands.stream().map(ApplicationCommand::toSlashCommand).collect(Collectors.toSet());
             discordApi.bulkOverwriteGlobalApplicationCommands(commandSet);
             _listeners.forEach(discordApi::addListener);
         }
         public void register(final DiscordApi discordApi, final Server server) {
+            discordInstance = discordApi;
+            serverInstance = Optional.of(server);
             var commandSet = _commands.stream().map(ApplicationCommand::toSlashCommand).collect(Collectors.toSet());
             discordApi.bulkOverwriteServerApplicationCommands(server, commandSet);
             _listeners.forEach(discordApi::addListener);

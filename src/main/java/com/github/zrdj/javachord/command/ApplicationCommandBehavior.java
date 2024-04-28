@@ -2,6 +2,7 @@ package com.github.zrdj.javachord.command;
 
 import com.github.zrdj.javachord.Javachord;
 import org.javacord.api.DiscordApi;
+import org.javacord.api.entity.server.Server;
 import org.javacord.api.event.interaction.SlashCommandCreateEvent;
 import org.javacord.api.interaction.SlashCommand;
 import org.javacord.api.interaction.SlashCommandBuilder;
@@ -18,7 +19,6 @@ abstract class ApplicationCommandBehavior implements ApplicationCommand, SlashCo
     protected final String _description;
     protected final Optional<ApplicationCommandGroup> _parentCommand;
     private final List<ApplicationCommandOption<?>> _options;
-    protected DiscordApi _discordApi;
 
     ApplicationCommandBehavior(final String name, final String description, ApplicationCommandGroup parentCommand, List<ApplicationCommandOption<?>> options) {
         _name = name.contains(" ") ? name.replaceAll(" ", "-") : name;
