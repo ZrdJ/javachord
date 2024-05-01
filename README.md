@@ -27,7 +27,7 @@ Release artifact
 <dependency>
     <groupId>com.github.zrdj</groupId>
     <artifactId>javachord</artifactId>
-    <version>3.8.0.10</version>
+    <version>3.8.0.11</version>
 </dependency>
 ```
 

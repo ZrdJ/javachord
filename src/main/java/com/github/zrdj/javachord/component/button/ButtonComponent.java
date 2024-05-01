@@ -6,11 +6,17 @@ import org.javacord.api.entity.message.component.LowLevelComponent;
 import org.javacord.api.interaction.ButtonInteraction;
 import org.javacord.api.interaction.MessageComponentInteraction;
 
+import java.util.function.Predicate;
+
 public abstract class ButtonComponent extends MessageComponentBehavior {
     private String _label;
 
     public ButtonComponent(final String identifier, final String label) {
-        super(identifier);
+        this(identifier, label, identifier::equalsIgnoreCase);
+    }
+
+    public ButtonComponent(final String identifier, final String label, final Predicate<String> identify) {
+        super(identifier, identify);
         this._label = label;
     }
 

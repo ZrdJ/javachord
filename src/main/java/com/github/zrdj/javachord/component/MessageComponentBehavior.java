@@ -5,14 +5,22 @@ import org.javacord.api.event.interaction.MessageComponentCreateEvent;
 import org.javacord.api.interaction.MessageComponentInteraction;
 import org.javacord.api.listener.interaction.MessageComponentCreateListener;
 
+import java.util.function.Predicate;
+
 public abstract class MessageComponentBehavior implements MessageComponent, MessageComponentCreateListener {
+    private final Predicate<String> _identify;
     protected final String _identifier;
     protected boolean _disabled = false;
 
-    public MessageComponentBehavior(final String identifier) {
-        Javachord.Constraint.ensureIdentifier(identifier);
+    public MessageComponentBehavior(final String identifier, final Predicate<String> identify) {
+        _identify = identify;
         _identifier = identifier;
+        Javachord.Constraint.ensureIdentifier(identifier);
         Javachord.Instance.Get.addListener(this);
+    }
+
+    public MessageComponentBehavior(final String identifier) {
+        this(identifier, identifier::equalsIgnoreCase);
     }
 
     @Override
@@ -27,8 +35,10 @@ public abstract class MessageComponentBehavior implements MessageComponent, Mess
 
     @Override
     public final void onComponentCreate(final MessageComponentCreateEvent event) {
-        event.getMessageComponentInteractionWithCustomId(_identifier)
-                .ifPresent(this::onInteraction);
+        var customId = event.getMessageComponentInteraction().getCustomId();
+        if (_identify.test(customId)) {
+            onInteraction(event.getMessageComponentInteraction());
+        }
     }
 
     protected abstract void onInteraction(final MessageComponentInteraction event);

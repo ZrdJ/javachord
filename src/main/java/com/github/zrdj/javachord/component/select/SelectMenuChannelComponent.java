@@ -11,6 +11,7 @@ import org.javacord.api.interaction.SelectMenuInteraction;
 import java.util.List;
 
 public abstract class SelectMenuChannelComponent extends MessageComponentBehavior {
+
     public SelectMenuChannelComponent(final String identifier) {
         super(identifier);
     }
