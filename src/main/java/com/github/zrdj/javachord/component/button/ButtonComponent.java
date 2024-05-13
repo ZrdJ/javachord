@@ -12,12 +12,8 @@ public abstract class ButtonComponent extends MessageComponentBehavior {
     private String _label;
 
     public ButtonComponent(final String identifier, final String label) {
-        this(identifier, label, identifier::equalsIgnoreCase);
-    }
-
-    public ButtonComponent(final String identifier, final String label, final Predicate<String> identify) {
-        super(identifier, identify);
-        this._label = label;
+        super(identifier);
+        _label = label;
     }
 
     protected abstract ButtonBuilder configureComponent(final ButtonBuilder builder);

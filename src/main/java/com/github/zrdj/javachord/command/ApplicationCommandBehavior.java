@@ -1,6 +1,9 @@
 package com.github.zrdj.javachord.command;
 
 import com.github.zrdj.javachord.Javachord;
+import com.github.zrdj.javachord.command.plugin.ApplicationCommandAccessPlugin;
+import com.github.zrdj.javachord.command.plugin.ApplicationCommandTriggerPlugin;
+import com.github.zrdj.javachord.error.JavachordConstraintError;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.entity.server.Server;
 import org.javacord.api.event.interaction.SlashCommandCreateEvent;
@@ -18,6 +21,8 @@ abstract class ApplicationCommandBehavior implements ApplicationCommand, SlashCo
     protected final String _name;
     protected final String _description;
     protected final Optional<ApplicationCommandGroup> _parentCommand;
+    private ApplicationCommandAccessPlugin _accessPlugin;
+    private ApplicationCommandTriggerPlugin _triggerPlugin;
     private final List<ApplicationCommandOption<?>> _options;
 
     ApplicationCommandBehavior(final String name, final String description, ApplicationCommandGroup parentCommand, List<ApplicationCommandOption<?>> options) {
@@ -66,10 +71,30 @@ abstract class ApplicationCommandBehavior implements ApplicationCommand, SlashCo
 
     @Override
     public final void onSlashCommandCreate(final SlashCommandCreateEvent event) {
-        if (!event.getSlashCommandInteraction().getFullCommandName().equalsIgnoreCase(fqdn())) {
+        ensurePlugins();
+        if (!_triggerPlugin.triggered(event.getSlashCommandInteraction())) {
+            return;
+        }
+        if (!_accessPlugin.authorized(event.getInteraction().getUser(), this)) {
             return;
         }
         onSlashCommandTriggered(event);
+    }
+
+    private void ensurePlugins() {
+        if (_triggerPlugin != null && _accessPlugin != null) {
+            return;
+        }
+
+        _triggerPlugin = triggerPlugin();
+        _accessPlugin = accessPlugin();
+
+        if (_triggerPlugin == null) {
+            throw new JavachordConstraintError("Trigger plugin has not been defined. Did you forget to provide a valid Plugin while overriding triggerPlugin()?");
+        }
+        if (_accessPlugin == null) {
+            throw new JavachordConstraintError("Access plugin has not been defined. Did you forget to provide a valid Plugin while overriding accessPlugin()?");
+        }
     }
 
     protected abstract void onSlashCommandTriggered(final SlashCommandCreateEvent event);
@@ -82,6 +107,14 @@ abstract class ApplicationCommandBehavior implements ApplicationCommand, SlashCo
     @Override
     public List<ApplicationCommand> subCommands() {
         return Collections.emptyList();
+    }
+
+    protected ApplicationCommandAccessPlugin accessPlugin() {
+        return ApplicationCommandAccessPlugin.defaultPlugin();
+    }
+
+    protected ApplicationCommandTriggerPlugin triggerPlugin() {
+        return ApplicationCommandTriggerPlugin.defaultPlugin(fqdn());
     }
 
 }

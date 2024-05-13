@@ -220,12 +220,9 @@ public interface Javachord {
     interface Message {
 
         interface Button {
-            static ButtonComponent primary(final String identifier, final String label, final Consumer<MessageComponentInteraction> onClick) {
-                return primary(identifier, label, onClick, identifier::equalsIgnoreCase);
-            }
 
-            static ButtonComponent primary(final String identifier, final String label, final Consumer<MessageComponentInteraction> onClick, final Predicate<String> identify) {
-                return new ButtonComponent(identifier, label, identify) {
+            static ButtonComponent primary(final String identifier, final String label, final Consumer<MessageComponentInteraction> onClick) {
+                return new ButtonComponent(identifier, label) {
 
                     @Override
                     protected ButtonBuilder configureComponent(final ButtonBuilder builder) {
@@ -239,12 +236,9 @@ public interface Javachord {
                 };
             }
 
-            static ButtonComponent secondary(final String identifier, final String label, final Consumer<MessageComponentInteraction> onClick) {
-                return secondary(identifier, label, onClick, identifier::equalsIgnoreCase);
-            }
 
-            static ButtonComponent secondary(final String identifier, final String label, final Consumer<MessageComponentInteraction> onClick, final Predicate<String> identify) {
-                return new ButtonComponent(identifier, label, identify) {
+            static ButtonComponent secondary(final String identifier, final String label, final Consumer<MessageComponentInteraction> onClick) {
+                return new ButtonComponent(identifier, label) {
 
                     @Override
                     protected ButtonBuilder configureComponent(final ButtonBuilder builder) {
@@ -259,11 +253,7 @@ public interface Javachord {
             }
 
             static ButtonComponent danger(final String identifier, final String label, final Consumer<MessageComponentInteraction> onClick) {
-                return danger(identifier, label, onClick, identifier::equalsIgnoreCase);
-            }
-
-            static ButtonComponent danger(final String identifier, final String label, final Consumer<MessageComponentInteraction> onClick, final Predicate<String> identify) {
-                return new ButtonComponent(identifier, label, identify) {
+                return new ButtonComponent(identifier, label) {
 
                     @Override
                     protected ButtonBuilder configureComponent(final ButtonBuilder builder) {
@@ -278,11 +268,7 @@ public interface Javachord {
             }
 
             static ButtonComponent success(final String identifier, final String label, final Consumer<MessageComponentInteraction> onClick) {
-                return success(identifier, label, onClick,identifier::equalsIgnoreCase);
-            }
-
-            static ButtonComponent success(final String identifier, final String label, final Consumer<MessageComponentInteraction> onClick, final Predicate<String> identify) {
-                return new ButtonComponent(identifier, label, identify) {
+                return new ButtonComponent(identifier, label) {
 
                     @Override
                     protected ButtonBuilder configureComponent(final ButtonBuilder builder) {
@@ -296,13 +282,8 @@ public interface Javachord {
                 };
             }
 
-
             static ButtonComponent link(final String identifier, final String label, final String url, final Consumer<MessageComponentInteraction> onClick) {
-                return link(identifier, label, url, onClick, identifier::equalsIgnoreCase);
-            }
-
-            static ButtonComponent link(final String identifier, final String label, final String url, final Consumer<MessageComponentInteraction> onClick, final Predicate<String> identify) {
-                return new ButtonComponent(identifier, label, identify) {
+                return new ButtonComponent(identifier, label) {
 
                     @Override
                     protected ButtonBuilder configureComponent(final ButtonBuilder builder) {
