@@ -12,7 +12,6 @@ import java.util.Optional;
 public abstract class MessageComponentBehavior implements MessageComponent, MessageComponentCreateListener {
     protected final String _identifier;
     protected boolean _disabled = false;
-    private MessageComponentTriggerPlugin _triggerPlugin;
 
     public MessageComponentBehavior(final String identifier) {
         _identifier = identifier;
@@ -25,13 +24,7 @@ public abstract class MessageComponentBehavior implements MessageComponent, Mess
     }
 
     private void ensurePlugins() {
-        if (_triggerPlugin != null) {
-            return;
-        }
-
-        _triggerPlugin = triggerPlugin();
-
-        if (_triggerPlugin == null) {
+        if (triggerPlugin() == null) {
             throw new JavachordConstraintError("Trigger plugin has not been defined. Did you forget to provide a valid Plugin while overriding triggerPlugin()?");
         }
     }
@@ -49,7 +42,7 @@ public abstract class MessageComponentBehavior implements MessageComponent, Mess
     @Override
     public final void onComponentCreate(final MessageComponentCreateEvent event) {
         ensurePlugins();
-        if (_triggerPlugin.triggered(event.getMessageComponentInteraction())) {
+        if (triggerPlugin().triggered(event.getMessageComponentInteraction())) {
             onInteraction(event.getMessageComponentInteraction());
         }
     }

@@ -21,8 +21,6 @@ abstract class ApplicationCommandBehavior implements ApplicationCommand, SlashCo
     protected final String _name;
     protected final String _description;
     protected final Optional<ApplicationCommandGroup> _parentCommand;
-    private ApplicationCommandAccessPlugin _accessPlugin;
-    private ApplicationCommandTriggerPlugin _triggerPlugin;
     private final List<ApplicationCommandOption<?>> _options;
 
     ApplicationCommandBehavior(final String name, final String description, ApplicationCommandGroup parentCommand, List<ApplicationCommandOption<?>> options) {
@@ -72,27 +70,20 @@ abstract class ApplicationCommandBehavior implements ApplicationCommand, SlashCo
     @Override
     public final void onSlashCommandCreate(final SlashCommandCreateEvent event) {
         ensurePlugins();
-        if (!_triggerPlugin.triggered(event.getSlashCommandInteraction())) {
+        if (!triggerPlugin().triggered(event.getSlashCommandInteraction())) {
             return;
         }
-        if (!_accessPlugin.authorized(event.getInteraction().getUser(), this)) {
+        if (!accessPlugin().authorized(event.getInteraction().getUser(), this)) {
             return;
         }
         onSlashCommandTriggered(event);
     }
 
     private void ensurePlugins() {
-        if (_triggerPlugin != null && _accessPlugin != null) {
-            return;
-        }
-
-        _triggerPlugin = triggerPlugin();
-        _accessPlugin = accessPlugin();
-
-        if (_triggerPlugin == null) {
+        if (triggerPlugin() == null) {
             throw new JavachordConstraintError("Trigger plugin has not been defined. Did you forget to provide a valid Plugin while overriding triggerPlugin()?");
         }
-        if (_accessPlugin == null) {
+        if (accessPlugin() == null) {
             throw new JavachordConstraintError("Access plugin has not been defined. Did you forget to provide a valid Plugin while overriding accessPlugin()?");
         }
     }
