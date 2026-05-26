@@ -1,6 +1,6 @@
 [![License](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)]()
 [![](https://jitpack.io/v/ZrdJ/javachord.svg)](https://jitpack.io/#ZrdJ/javachord)
-![GitHub Workflow Status (branch)](https://github.com/zrdj/javachord/actions/workflows/maven.yml/badge.svg)
+![GitHub Workflow Status (branch)](https://github.com/ZrdJ/javachord/actions/workflows/build.yml/badge.svg)
 
 # Javachord
 
