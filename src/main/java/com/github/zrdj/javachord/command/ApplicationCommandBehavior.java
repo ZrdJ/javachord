@@ -4,8 +4,6 @@ import com.github.zrdj.javachord.Javachord;
 import com.github.zrdj.javachord.command.plugin.ApplicationCommandAccessPlugin;
 import com.github.zrdj.javachord.command.plugin.ApplicationCommandTriggerPlugin;
 import com.github.zrdj.javachord.error.JavachordConstraintError;
-import org.javacord.api.DiscordApi;
-import org.javacord.api.entity.server.Server;
 import org.javacord.api.event.interaction.SlashCommandCreateEvent;
 import org.javacord.api.interaction.SlashCommand;
 import org.javacord.api.interaction.SlashCommandBuilder;

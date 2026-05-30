@@ -7,8 +7,6 @@ import org.javacord.api.event.interaction.MessageComponentCreateEvent;
 import org.javacord.api.interaction.MessageComponentInteraction;
 import org.javacord.api.listener.interaction.MessageComponentCreateListener;
 
-import java.util.Optional;
-
 public abstract class MessageComponentBehavior implements MessageComponent, MessageComponentCreateListener {
     protected final String _identifier;
     protected boolean _disabled = false;
