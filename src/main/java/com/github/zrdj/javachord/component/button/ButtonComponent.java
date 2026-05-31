@@ -3,10 +3,7 @@ package com.github.zrdj.javachord.component.button;
 import com.github.zrdj.javachord.component.MessageComponentBehavior;
 import org.javacord.api.entity.message.component.ButtonBuilder;
 import org.javacord.api.entity.message.component.LowLevelComponent;
-import org.javacord.api.interaction.ButtonInteraction;
 import org.javacord.api.interaction.MessageComponentInteraction;
-
-import java.util.function.Predicate;
 
 public abstract class ButtonComponent extends MessageComponentBehavior {
     private String _label;
